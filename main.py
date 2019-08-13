@@ -8,6 +8,11 @@ class PaintIo:
     
     def start(self):
         # Display current user info
+        font = pygame.font.Font(None, 16)
+        text = font.render("Would you like to start? (y/n)", 1, (255, 255, 255))
+        textpos = text.get_rect(centerx = self.surface.get_width() / 2, centery = self.surface.get_height() / 2)
+        self.surface.blit(text, textpos)
+        pygame.display.update()
         
         # Prompt connect user
         
@@ -19,6 +24,13 @@ class PaintIo:
                 return
             elif event.type is pygame.KEYUP:
                 print(event.__dict__['key'])
+                if event.__dict__['key'] == ord('y'):
+                    self.surface.fill(pygame.Color("black"))
+                    pygame.display.update()
+                    break
+                elif event.__dict__['key'] == ord('n'):
+                    pygame.display.quit()
+                    return
     
     def update(self):
         rect = pygame.draw.rect(self.surface, (255, 255, 255), pygame.Rect(25, 25, 25, 25))
